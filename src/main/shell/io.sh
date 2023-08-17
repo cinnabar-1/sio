@@ -11,11 +11,32 @@ echo '' > "${LOG}"
 lock_process=/app/0808/idel-jar-with-dependencies.jar
 #nohup ${JAVA} -jar ${lock_process} </dev/null >/app/0808/all.log 2>&1 &
 
+input_file=/app/0808/input_file.fifo
+output_file=/app/0808/output_file.fifo
+mkfifo $input_file
+mkfifo $output_file
 
-ids=$(java -jar ${lock_process} | tail -l)
-echo "${ids[@]}"
+#ids=$(java -jar ${lock_process} < $input_file | tail -l)\
 
-for itemId in ${ids}
-do
-  echo "${itemId}"
-done
+#echo "${ids[@]}"
+#
+#for itemId in ${ids}
+#do
+#  echo "${itemId}"
+#done
+
+nohup java -jar ${lock_process} <$input_file >$output_file  2>error.log &
+
+echo 1 > $input_file
+
+in=$(cat $output_file)
+
+echo "$in"
+
+echo 2 > $input_file
+
+echo "$in"
+
+echo "$in"
+
+
