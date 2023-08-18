@@ -15,6 +15,8 @@ input_file=/app/0808/input_file.fifo
 output_file=/app/0808/output_file.fifo
 mkfifo $input_file
 mkfifo $output_file
+exec 3<>$input_file
+exec 4<>$output_file
 
 #ids=$(java -jar ${lock_process} < $input_file | tail -l)\
 
@@ -29,13 +31,13 @@ nohup java -jar ${lock_process} <$input_file >$output_file  2>error.log &
 
 echo 1 > $input_file
 
-in=$(cat $output_file)
+read -u3 in
 
 echo "$in"
 
 echo 2 > $input_file
 
-echo "$in"
+read -u3 in
 
 echo "$in"
 
