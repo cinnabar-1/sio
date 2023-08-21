@@ -53,7 +53,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.zz.Main</mainClass>
+                            <mainClass>com.zz.Node</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
