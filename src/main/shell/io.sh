@@ -28,6 +28,10 @@ exec 4<>$output_file
 #  echo "${itemId}"
 #done
 
+if [ -p ${input_file} ]; then
+    echo "input file now"
+fi
+
 nohup java -jar ${lock_process} <$input_file >$output_file  2>error.log &
 
 read -u4 in
